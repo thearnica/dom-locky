@@ -1,18 +1,20 @@
 # dom-locky 
 [![CircleCI status](https://img.shields.io/circleci/project/github/thearnica/dom-locky/master.svg?style=flat-square)](https://circleci.com/gh/thearnica/dom-locky/tree/master)
 [![Greenkeeper badge](https://badges.greenkeeper.io/thearnica/dom-locky.svg)](https://greenkeeper.io/)
-, and just __1kb__.
+[![npm](https://img.shields.io/npm/v/dom-locky.svg)](https://www.npmjs.com/package/dom-locky)
 ----
 
 [![NPM](https://nodei.co/npm/dom-locky.png?downloads=true&stars=true)](https://nodei.co/npm/dom-locky/)
 
-Loki  - is God of Mischief, Madness and Evil!
-Locky - is God of Locks, Event capturing and Stealing. Small and very slender brother - just 2kb.
+🙈Loki  - is God of Mischief, Madness and Evil!
 
-Locky will never let event escape the target node, will prevent scrolls outside, will do the HTML5 `inert` job.
+🙉Locky - is God of Locks, Event capturing and Stealing. Small and very slender brother - just 1kb.
+
+🙊Locky will never let event escape the target node, will prevent scrolls outside, will do the HTML5 `inert` job.
+
 Locky will completely disable any user iterations outside of nested children.
 
-And I've got a twin-brother - [react-locky](https://github.com/theKashey/react-locky)
+And it has a twin-brother - [react-locky](https://github.com/theKashey/react-locky)
 ```js
 import {lockyOn} from 'dom-locky';
 
@@ -45,6 +47,10 @@ unlock();
  - change: false,
  - scroll: true, (scroll is handled separately)
  - wheel: true, 
+ 
+# Focus
+ Locky could not propely handle __focus__ events, and will let it get out of the form, and will block attemps to return it, as long they will have source out of the lock.
+ To scope a focus use [dom-focus-lock](https://github.com/theKashey/dom-focus-lock)
  
 # Tip
 __important__ tip for __Mobile Safary__ - while normal "touch move" will
