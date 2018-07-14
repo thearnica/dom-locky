@@ -4,7 +4,7 @@
 , and just __1kb__.
 ----
 
-[![NPM](https://nodei.co/npm/react-locky.png?downloads=true&stars=true)](https://nodei.co/npm/react-locky/) 
+[![NPM](https://nodei.co/npm/dom-locky.png?downloads=true&stars=true)](https://nodei.co/npm/dom-locky/)
 
 Loki  - is God of Mischief, Madness and Evil!
 Locky - is God of Locks, Event capturing and Stealing. Small and very slender brother - just 2kb.
