@@ -1,0 +1,66 @@
+{
+  "name": "dom-locky",
+  "version": "1.0.0",
+  "description": "🙊🙈🙉 - the best way to scope a scroll, or literally any other event.",
+  "main": "dist/index.js",
+  "unpkg": "umd/index.js",
+  "types": "types/index.d.ts",
+  "scripts": {
+    "build": "rm -Rf ./dist && babel src -d dist",
+    "umd": "browserify dist/index.js --standalone locky -o umd/index.js",
+    "prepublish": "npm run build && npm run umd",
+    "test": "jest",
+    "lint": "eslint src tests",
+    "lint:fix": "eslint src tests --fix",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
+    "size": "npm run build && size-limit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thearnica/dom-locky.git"
+  },
+  "keywords": [
+    "dom",
+    "lock",
+    "event",
+    "isolation"
+  ],
+  "author": "theArnica <thearnica@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thearnica/dom-locky/issues"
+  },
+  "devDependencies": {
+    "@storybook/addon-actions": "^3.3.6",
+    "@storybook/addon-links": "^3.3.6",
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.25.0",
+    "babel-eslint": "^8.2.3",
+    "babel-jest": "^23.0.0",
+    "babel-plugin-transform-class-properties": "6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "browserify": "^16.2.2",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "eslint": "^4.2.0",
+    "eslint-config-airbnb": "16.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "6.0.3",
+    "eslint-plugin-mocha": "^5.0.0",
+    "eslint-plugin-react": "^7.3.0",
+    "jest": "^23.0.0",
+    "jsdom": "11.11.0",
+    "jsdom-global": "3.0.2",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.1",
+    "storybook": "^1.0.0"
+  },
+  "homepage": "https://github.com/thearnica/dom-locky#readme",
+  "dependencies": {
+    "size-limit": "^0.18.1"
+  }
+}
