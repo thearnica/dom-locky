@@ -1,14 +1,13 @@
-import {addEvent, getHandler, removeEvent} from './utils';
-import {getTouchY, handleScroll} from './handleScroll';
-import {EVENTS} from './defaultEvents';
-import {isInside, LOCKY_GROUP, shouldIgnoreEvent} from './isInside';
+import { addEvent, getHandler, removeEvent } from './utils';
+import { getTouchY, handleScroll } from './handleScroll';
+import { EVENTS } from './defaultEvents';
+import { isInside, LOCKY_GROUP, shouldIgnoreEvent } from './isInside';
 
 export const lockyGroup = (selector, group) => {
-  [...document.querySelectorAll(selector)].forEach(node => node.setAttribute(LOCKY_GROUP, group))
+  [...document.querySelectorAll(selector)].forEach(node => node.setAttribute(LOCKY_GROUP, group));
 };
 
 export const lockyOn = (selector, settings = {}) => {
-
   const ref = typeof selector === 'string' ? document.querySelector(selector) : selector;
 
   if (!ref) {
@@ -17,8 +16,10 @@ export const lockyOn = (selector, settings = {}) => {
 
   let touchStart = 0;
 
+  const isEventInLock = event => ref && isInside(ref, event.target);
+
   const getEventHandlers = () => {
-    const {noDefault, events} = settings;
+    const { noDefault, events } = settings;
     return Object.assign({}, noDefault ? {} : EVENTS, events || {});
   };
 
@@ -39,7 +40,6 @@ export const lockyOn = (selector, settings = {}) => {
     touchStart = getTouchY(event);
   };
   const scrollTouchMove = event => handleScroll(ref, event, touchStart - getTouchY(event), settings.preventOnly);
-  const isEventInLock = event => ref && isInside(ref, event.target);
 
   const handlers = getEventHandlers();
   const documentEvents = Object
@@ -63,5 +63,5 @@ export const lockyOn = (selector, settings = {}) => {
   return () => {
     documentEvents.forEach(removeEvent);
     nodeEvents.forEach(removeEvent);
-  }
+  };
 };
