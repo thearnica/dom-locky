@@ -11,7 +11,7 @@ export const lockyOn = (selector, settings = {}) => {
   const ref = typeof selector === 'string' ? document.querySelector(selector) : selector;
 
   if (!ref) {
-    throw new Error('locky: selector', selector, 'is not matching any element');
+    throw new Error('locky: selector', selector, 'is not matching any element.');
   }
 
   let touchStart = 0;
@@ -45,7 +45,7 @@ export const lockyOn = (selector, settings = {}) => {
   const documentEvents = Object
     .keys(handlers)
     .map(event => addEvent(document, event, getEventHandler(event, handlers[event]), true))
-    .filter(x => x);
+    .filter(Boolean);
 
   const nodeEvents = [];
   if (handlers.scroll) {
