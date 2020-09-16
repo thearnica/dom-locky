@@ -1,6 +1,6 @@
 {
   "name": "dom-locky",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "🙊🙈🙉 - the best way to scope a scroll, or literally any other event.",
   "main": "dist/index.js",
   "unpkg": "umd/index.js",
