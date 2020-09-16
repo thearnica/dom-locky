@@ -2,6 +2,14 @@ import { preventAll, preventDefault } from './utils';
 
 export const getTouchY = event => event.changedTouches[0].clientY;
 
+const elementCouldBeVScrolled = (node) => {
+  const styles = window.getComputedStyle(node);
+  return (
+    styles.overflowY !== 'hidden' && // not-not-scrollable
+    !(styles.overflowY === styles.overflowX && styles.overflowY === 'visible') // scrollable
+  );
+};
+
 export const handleScroll = (endTarget, event, sourceDelta, preventOnly = false) => {
   const delta = sourceDelta;
   // find scrollable target
@@ -14,10 +22,12 @@ export const handleScroll = (endTarget, event, sourceDelta, preventOnly = false)
   let availableScrollTop = 0;
 
   do {
-    const { scrollTop, scrollHeight, clientHeight } = target;
+    if(elementCouldBeVScrolled(target)) {
+      const {scrollTop, scrollHeight, clientHeight} = target;
 
-    availableScroll += scrollHeight - clientHeight - scrollTop;
-    availableScrollTop += scrollTop;
+      availableScroll += scrollHeight - clientHeight - scrollTop;
+      availableScrollTop += scrollTop;
+    }
 
     target = target.parentNode;
   } while (endTarget.contains(target));

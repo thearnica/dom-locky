@@ -57,10 +57,8 @@
     "jsdom-global": "3.0.2",
     "react": "^16.3.2",
     "react-dom": "^16.3.1",
-    "storybook": "^1.0.0"
-  },
-  "homepage": "https://github.com/thearnica/dom-locky#readme",
-  "dependencies": {
+    "storybook": "^1.0.0",
     "size-limit": "^0.18.1"
-  }
+  },
+  "homepage": "https://github.com/thearnica/dom-locky#readme"
 }

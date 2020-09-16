@@ -29,6 +29,13 @@ var getTouchY = exports.getTouchY = function getTouchY(event) {
   return event.changedTouches[0].clientY;
 };
 
+var elementCouldBeVScrolled = function elementCouldBeVScrolled(node) {
+  var styles = window.getComputedStyle(node);
+  return styles.overflowY !== 'hidden' && // not-not-scrollable
+  !(styles.overflowY === styles.overflowX && styles.overflowY === 'visible') // scrollable
+  ;
+};
+
 var handleScroll = exports.handleScroll = function handleScroll(endTarget, event, sourceDelta) {
   var preventOnly = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
 
@@ -44,14 +51,16 @@ var handleScroll = exports.handleScroll = function handleScroll(endTarget, event
   var availableScrollTop = 0;
 
   do {
-    var _target = target,
-        scrollTop = _target.scrollTop,
-        scrollHeight = _target.scrollHeight,
-        clientHeight = _target.clientHeight;
+    if (elementCouldBeVScrolled(target)) {
+      var _target = target,
+          scrollTop = _target.scrollTop,
+          scrollHeight = _target.scrollHeight,
+          clientHeight = _target.clientHeight;
 
 
-    availableScroll += scrollHeight - clientHeight - scrollTop;
-    availableScrollTop += scrollTop;
+      availableScroll += scrollHeight - clientHeight - scrollTop;
+      availableScrollTop += scrollTop;
+    }
 
     target = target.parentNode;
   } while (endTarget.contains(target));
@@ -98,14 +107,17 @@ var lockyGroup = exports.lockyGroup = function lockyGroup(selector, group) {
 var lockyOn = exports.lockyOn = function lockyOn(selector) {
   var settings = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-
   var ref = typeof selector === 'string' ? document.querySelector(selector) : selector;
 
   if (!ref) {
-    throw new Error('locky: selector', selector, 'is not matching any element');
+    throw new Error('locky: selector', selector, 'is not matching any element.');
   }
 
   var touchStart = 0;
+
+  var isEventInLock = function isEventInLock(event) {
+    return ref && (0, _isInside.isInside)(ref, event.target);
+  };
 
   var getEventHandlers = function getEventHandlers() {
     var noDefault = settings.noDefault,
@@ -135,16 +147,11 @@ var lockyOn = exports.lockyOn = function lockyOn(selector) {
   var scrollTouchMove = function scrollTouchMove(event) {
     return (0, _handleScroll.handleScroll)(ref, event, touchStart - (0, _handleScroll.getTouchY)(event), settings.preventOnly);
   };
-  var isEventInLock = function isEventInLock(event) {
-    return ref && (0, _isInside.isInside)(ref, event.target);
-  };
 
   var handlers = getEventHandlers();
   var documentEvents = Object.keys(handlers).map(function (event) {
     return (0, _utils.addEvent)(document, event, getEventHandler(event, handlers[event]), true);
-  }).filter(function (x) {
-    return x;
-  });
+  }).filter(Boolean);
 
   var nodeEvents = [];
   if (handlers.scroll) {
